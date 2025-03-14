@@ -1,9 +1,20 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { ArrowLeft, Share2, MessageCircle } from 'lucide-react';
 
 const WorkDetailPreview = () => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-white mx-auto shadow-lg">
+
       {/* App Header */}
       <div className="px-4 py-3 flex items-center justify-between border-b">
         <div className="flex items-center">
@@ -31,19 +42,12 @@ const WorkDetailPreview = () => {
             <div className="absolute inset-0 flex justify-center items-center bg-white shadow-sm rounded-lg">
               <div className="text-center p-4">
                 <div className="flex justify-center mb-3">
-                  <svg viewBox="0 0 200 200" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <linearGradient id="featherGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#7928CA" />
-                        <stop offset="50%" stopColor="#FF0080" />
-                        <stop offset="100%" stopColor="#FF8C00" />
-                      </linearGradient>
-                    </defs>
-                    <path d="M130,30 C150,40 160,60 160,80 C160,100 140,120 120,130 C100,140 80,130 60,110 C40,90 20,70 30,50 C40,30 60,20 80,30 C100,40 110,20 130,30 Z" fill="url(#featherGradient)" />
-                    <path d="M80,100 C90,90 100,80 110,90 C120,100 130,110 120,120 C110,130 100,120 90,110 C80,100 70,110 80,100 Z" fill="#3B82F6" />
-                  </svg>
+                  {image ? (
+                    <img src={URL.createObjectURL(image)} alt="Uploaded" className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-3 border border-gray-300 rounded-lg" />
+                  )}
                 </div>
-                <div className="font-bold uppercase text-xl">LOREM <span className="font-normal">IPSUM</span></div>
               </div>
             </div>
           </div>
@@ -79,7 +83,7 @@ const WorkDetailPreview = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-bold mb-2">Project Description</h3>
+          <h3 className="text-lg font-bold mb-2 text-gray-800">Project Description</h3>
           <p className="text-gray-700">
             Looking for a unique and professional logo to represent your brand? I offer custom logo design tailored to your business needs, ensuring a visually appealing and memorable identity.
           </p>
@@ -89,7 +93,7 @@ const WorkDetailPreview = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-bold mb-2">Tools</h3>
+          <h3 className="text-lg font-bold mb-2 text-gray-800">Tools</h3>
           <div className="flex flex-wrap gap-2">
             <div className="bg-pink-100 text-pink-500 px-6 py-3 rounded-lg">
               Figma
