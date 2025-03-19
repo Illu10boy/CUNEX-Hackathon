@@ -32,7 +32,7 @@ export default function ReviewAndPayPage() {
     <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-pink-500 mb-2">3D Printing Service</h1>
+          <h1 className="text-3xl font-bold text-pink-500 mb-2">Fabrication Services</h1>
           <p className="text-xl text-pink-400">Review your order and complete payment</p>
         </header>
 
