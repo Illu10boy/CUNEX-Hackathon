@@ -18,9 +18,34 @@ export default function ReviewPaymentPage() {
 
   const totalPrice = projectDetails.price + projectDetails.tax + projectDetails.shipping;
 
-  const handleAccept = () => {
-    // Process payment and redirect
-    router.push("/service/fabrication/3d/confirmation");
+  const handleAccept = async () => {
+    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+  
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
+  
+    try {
+      const response = await fetch("/api/userRecieveConfirmation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        console.log("Notification sent successfully:", data);
+        router.push("/service/fabrication/3d/confirmation");
+      } else {
+        console.error("Failed to send notification:", data);
+      }
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
   };
 
   const handleDeny = () => {

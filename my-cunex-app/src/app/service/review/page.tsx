@@ -52,11 +52,21 @@ export default function ReviewAndPayPage() {
     orderDetails.filename = "custom-sign.dxf";
   }
 
-  const handleSubmitOrder = () => {
-    setShowModal(true);
-    setTimeout(() => { setShowModal(false);
-      router.push("/"); }
-      , 2000);
+  const handleSubmitOrder = async () => {
+    const userId = localStorage.getItem("userId");
+    try {
+    const response = await fetch("/api/userSendRequest", {
+      method: "POST",
+      body: JSON.stringify({ userId }),
+    });
+    alert("Order submitted successfully! Redirecting to home page...");
+    const result = await response.json();
+    console.log(result);
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      alert("An error occurred while submitting your order. Please try again.");
+  }
+    router.push("/");
   };
 
   return (

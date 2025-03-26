@@ -9,6 +9,17 @@ export async function GET(request: NextRequest) {
     password: process.env.NEXT_PUBLIC_AWS_RDS_PASSWORD,
     database: process.env.NEXT_PUBLIC_AWS_RDS_DATABASE,
   });
+  return NextResponse.json(    {
+    "userId": "00102430927900000236",
+    "studentId" :"6538114021",
+    "firstNameEN" : "Pannawish",
+    "lastNameEN" : "Leechasan",
+    "facultyCode": "21",
+    "facultyNameEN": "FACULTY OF ENGINEERING",
+    "facultyNameTH": "คณะวิศวกรรมศาสตร์",
+    "studentYear": "2565"
+
+  })
   const token = request.headers.get("Authorization")?.replace("Bearer ", "");
 
   // Ensure the token is available
